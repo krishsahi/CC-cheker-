@@ -6,65 +6,49 @@ import time
 import asyncio
 from dotenv import find_dotenv, load_dotenv
 import os
-from google import genai
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
-import sqlite3
 
 from db import init_db, upsert_group
 
-DB_NAME = "checkerdata.db"
-
-def init_db():   # ← DEFINE FIRST
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS Users (
-        user_id INTEGER PRIMARY KEY,
-        state TEXT DEFAULT '',
-        post TEXT DEFAULT ''
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS Groups (
-        chat_id INTEGER PRIMARY KEY,
-        link TEXT DEFAULT ''
-    )
-    """)
-
-    conn.commit()
-    conn.close()
-
-
-init_db()   # ← CALL AFTER DEFINITION
-
+# Load env
 envpath = find_dotenv()
 load_dotenv(envpath)
 
-TOKEN = os.getenv("8347516466:AAGNBM9Xwk7HNlEmnNHODKBTKOO25pbo7yo") # Get your Token from @Botfather 
+# DB init (creates tables)
+init_db()
+
+# Token (Railway variable)
+TOKEN = os.getenv("8347516466:AAFkap3z9ccL2cs6tInBD_3FVd32bFAxbtU")
+if not TOKEN:
+    raise RuntimeError("BOT_TOKEN missing! Add it in Railway Variables.")
+
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 botconfig = {
-    "botname" : "Spiecheckers",
-    "botusername" : "@Spiecheckers_bot",
-    "owner" : {
-        "id" : 6442992043,
-        "link" : "https://t.me/CDxkrish",
-        "name" : "ᴾʳⁱᵐᵉᴋʀɪꜱʜ"
+    "botname": "Spiecheckers",
+    "botusername": "@Spiecheckers_bot",
+    "owner": {
+        "id": 6442992043,
+        "link": "https://t.me/CDxkrish",
+        "name": "ᴾʳⁱᵐᵉᴋʀɪꜱʜ"
     },
-    "maingroup" : {
-        "link" : "https://t.me/+XkvUejvYBE1hZTll",
+    "maingroup": {
+        "link": "https://t.me/+XkvUejvYBE1hZTll",
         "chat_id": -1003066786395
     },
-    "mainchannel" :  "https://t.me/methods_by_krish"
+    "mainchannel": "https://t.me/methods_by_krish"
 }
 
-logging.basicConfig(filename= "logs.txt",
-                    filemode= "w",
-                    format="%(asctime)s - %(levelname)s : %(message)s",
-                    level= logging.WARNING)
+logging.basicConfig(
+    filename="logs.txt",
+    filemode="w",
+    format="%(asctime)s - %(levelname)s : %(message)s",
+    level=logging.WARNING
+)
+
+# Save group to DB (optional but useful)
+upsert_group(botconfig["maingroup"]["chat_id"], botconfig["maingroup"]["link"])
 
 async def error_handler(udpate: Update, context : ContextTypes.DEFAULT_TYPE):
     logging.error(context.error + "From error handler")
