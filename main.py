@@ -11,6 +11,33 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 import sqlite3
 
+import sqlite3
+
+DB_NAME = "checkerdata.db"  # or "checkerdata.db" (must match exactly)
+init_db()   # runs once when script starts
+def init_db():
+    conn = sqlite3.connect(DB_NAME)
+    cur = conn.cursor()
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS Users (
+        user_id INTEGER PRIMARY KEY,
+        state TEXT DEFAULT '',
+        post TEXT DEFAULT ''
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS Groups (
+        chat_id INTEGER PRIMARY KEY,
+        link TEXT DEFAULT ''
+    )
+    """)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
 envpath = find_dotenv()
 load_dotenv(envpath)
 
