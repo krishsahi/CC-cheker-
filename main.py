@@ -56,7 +56,7 @@ botconfig = {
     },
     "maingroup" : {
         "link" : "https://t.me/+XkvUejvYBE1hZTll",
-        "chat id" : -1003066786395
+        "chat_id": -1003066786395
     },
     "mainchannel" :  "https://t.me/methods_by_krish"
 }
@@ -119,7 +119,10 @@ def initialdb_setup(details):
         conn = sqlite3.connect("checkerdata.db")
         cur = conn.cursor()
 
-        cur.execute("INSERT INTO Groups (chatid, link) VALUES (?,?);",(details["maingroup"]["chat id"],details["maingroup"]["link"]))
+        cur.execute(
+    "INSERT INTO Groups (chat_id, link) VALUES (?,?)",
+    (details["maingroup"]["chat_id"], details["maingroup"]["link"])
+        )
 
         conn.commit()
         cur.close()
