@@ -56,7 +56,7 @@ botconfig = {
     },
     "maingroup" : {
         "link" : "https://t.me/+XkvUejvYBE1hZTll",
-        "chat id": -1003066786395
+        "chat_id": -1003066786395
     },
     "mainchannel" :  "https://t.me/methods_by_krish"
 }
@@ -127,7 +127,7 @@ def initialdb_setup(details):
         conn.commit()
         cur.close()
         conn.close()
-        logging.warning(f"Main auth Group ID : {details["maingroup"]["chat id"]} , Link : {details["maingroup"]["link"]} ( Bot users can use /check, /mcheck commands in this auth group )")
+        logging.warning(f"Main auth Group ID : {details["maingroup"]["chat_id"]} , Link : {details["maingroup"]["link"]} ( Bot users can use /check, /mcheck commands in this auth group )")
     else:
         conn = sqlite3.connect("checkerdata.db")
         cur = conn.cursor()
