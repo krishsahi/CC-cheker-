@@ -19,7 +19,7 @@ load_dotenv(envpath)
 init_db()
 
 # Token (Railway variable)
-TOKEN = os.getenv("8347516466:AAFkap3z9ccL2cs6tInBD_3FVd32bFAxbtU")
+TOKEN = os.getenv("BOT_TOKEN")
 if not TOKEN:
     raise RuntimeError("BOT_TOKEN missing! Add it in Railway Variables.")
 
