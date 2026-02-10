@@ -8,7 +8,7 @@ from dotenv import find_dotenv, load_dotenv
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
-
+import sqlite3
 from db import init_db, upsert_group
 
 # Load env
