@@ -11,7 +11,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 import sqlite3
 
-import sqlite3
+from db import init_db, upsert_group
 
 DB_NAME = "checkerdata.db"
 
