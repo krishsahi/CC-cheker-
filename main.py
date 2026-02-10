@@ -43,7 +43,7 @@ init_db()   # ← CALL AFTER DEFINITION
 envpath = find_dotenv()
 load_dotenv(envpath)
 
-TOKEN = os.getenv("8546375992:AAE5CR7ZnnETPztZpZqb1Jy9DuYPV9UtQ1A") # Get your Token from @Botfather 
+TOKEN = os.getenv("8347516466:AAGNBM9Xwk7HNlEmnNHODKBTKOO25pbo7yo") # Get your Token from @Botfather 
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 botconfig = {
@@ -56,7 +56,7 @@ botconfig = {
     },
     "maingroup" : {
         "link" : "https://t.me/+XkvUejvYBE1hZTll",
-        "chat_id": -1003066786395
+        "chat id": -1003066786395
     },
     "mainchannel" :  "https://t.me/methods_by_krish"
 }
