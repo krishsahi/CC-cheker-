@@ -13,9 +13,9 @@ import sqlite3
 
 import sqlite3
 
-DB_NAME = "checkerdata.db"  # or "checkerdata.db" (must match exactly)
-init_db()   # runs once when script starts
-def init_db():
+DB_NAME = "checkerdata.db"
+
+def init_db():   # ← DEFINE FIRST
     conn = sqlite3.connect(DB_NAME)
     cur = conn.cursor()
 
@@ -35,8 +35,10 @@ def init_db():
     """)
 
     conn.commit()
-    cur.close()
     conn.close()
+
+
+init_db()   # ← CALL AFTER DEFINITION
 
 envpath = find_dotenv()
 load_dotenv(envpath)
